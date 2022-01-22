@@ -40,7 +40,7 @@ import React from "react";
 function App() {
   ...
   <Element style={{
-    alignItems: "center"
+    justifyContent: "center"
   }}
   ...
 }
