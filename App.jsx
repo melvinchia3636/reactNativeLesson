@@ -16,12 +16,13 @@ if (Platform.OS === 'android') {
 }
 
 export default function App() {
+  const [currentDirection, setCurrentDirection] = useState('column');
   const [currentAlign, setCurrentAlign] = useState('center');
   const [currentJustify, setCurrentJustify] = useState('center');
 
   useLayoutEffect(() => {
     LayoutAnimation.easeInEaseOut();
-  }, [currentAlign, currentJustify]);
+  }, [currentAlign, currentJustify, currentDirection]);
 
   return (
     <>
@@ -31,6 +32,70 @@ export default function App() {
         width: '100%',
       }}
       >
+        <Text style={{
+          fontSize: 12,
+          fontWeight: 'bold',
+          color: '#94A3B8',
+          marginBottom: 8,
+        }}
+        >
+          Align Items
+        </Text>
+        <View style={{
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+        }}
+        >
+          {['row', 'column'].map((e, i) => (
+            <Pressable
+              style={{
+                backgroundColor: currentDirection !== e ? 'white' : '#22C55E',
+                borderWidth: 2,
+                borderColor: '#22C55E',
+                flex: 1,
+                paddingVertical: 10,
+                marginRight: !i ? 6 : 0,
+              }}
+              onPress={() => setCurrentDirection(e)}
+            >
+              <Text style={{
+                color: currentDirection === e ? 'white' : '#22C55E',
+                textAlign: 'center',
+              }}
+              >
+                {e}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+        <View style={{
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          marginTop: 6,
+        }}
+        >
+          {['row-reverse', 'column-reverse'].map((e, i) => (
+            <Pressable
+              style={{
+                backgroundColor: currentDirection !== e ? 'white' : '#22C55E',
+                borderWidth: 2,
+                borderColor: '#22C55E',
+                flex: 1,
+                paddingVertical: 10,
+                marginRight: !i ? 6 : 0,
+              }}
+              onPress={() => setCurrentDirection(e)}
+            >
+              <Text style={{
+                color: currentDirection === e ? 'white' : '#22C55E',
+                textAlign: 'center',
+              }}
+              >
+                {e}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
         <Text style={{
           fontSize: 12,
           fontWeight: 'bold',
@@ -166,23 +231,21 @@ export default function App() {
         flex: 1,
         alignItems: currentAlign,
         justifyContent: currentJustify,
+        flexDirection: currentDirection,
       }}
       >
         <View style={{
-          width: 80,
-          height: 80,
+          padding: 30,
           backgroundColor: '#22C55E',
         }}
         />
         <View style={{
-          width: 80,
-          height: 80,
+          padding: 30,
           backgroundColor: '#4ADE80',
         }}
         />
         <View style={{
-          width: 80,
-          height: 80,
+          padding: 30,
           backgroundColor: '#86EFAC',
         }}
         />
